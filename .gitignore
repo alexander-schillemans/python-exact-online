@@ -1,0 +1,8 @@
+exactonline/tests/
+tests/
+exactonline/__pycache__/
+__pycache__/
+exactonline/cache/*
+!exactonline/cache/__init__.py
+dist/
+Pipfile.lock
