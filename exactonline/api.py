@@ -64,7 +64,7 @@ class ExactOnlineAPI:
         self.checkDivision()
 
         response = self.doRequest(method, url, data, headers, files)
-        respContent = json.loads(response.content)
+        respContent = json.loads(response.content) if response.content else None
         
         return response.status_code, response.headers, respContent
     

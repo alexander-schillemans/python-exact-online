@@ -54,3 +54,25 @@ class APIEndpoint:
         if status not in [200, 201]: return self.singleObject().parseError(respJson)
 
         return self.singleObject().parse(respJson['d'])
+    
+    def update(self, object):
+        id = getattr(object, self.pkField)
+        url = "{endpoint}(guid'{id}')".format(endpoint=self.endpoint, id=id)
+        data = object.getJSON()
+
+        print(data)
+
+        status, headers, respJson = self.api.put(url, data)
+        print(respJson)
+        if status not in [200, 204]: return self.singleObject().parseError(respJson)
+
+        return self.singleObject().parse(respJson['d'])
+
+    def delete(self, id):
+        url = "{endpoint}(guid'{id}')".format(endpoint=self.endpoint, id=id)
+        data = None
+
+        status, headers, respJson = self.api.delete(url, data)
+
+        if status not in [200, 204]: return self.singleObject().parseError(respJson)
+        return True

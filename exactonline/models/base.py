@@ -1,3 +1,5 @@
+import re
+import datetime
 
 #==============[HELPER FUNCTIONS]=================#
 
@@ -45,6 +47,12 @@ class BaseModel:
                 if isinstance(attrVal, BaseModel):
                     setattr(self, key, attrVal.parse(value))
                 else:
+
+                    if value and 'Date' in str(value):
+                        epoch = int(re.search(r"\((.*?)\)", value).group(1))
+                        epoch = round((epoch/1000))
+                        value = datetime.datetime.utcfromtimestamp(epoch)
+                    
                     setattr(self, key, value)
 
         return self
@@ -59,6 +67,7 @@ class BaseModel:
                     json = v.getJSON()
                     if json: dikt[k] = json
                 else:
+                    if isinstance(v, datetime.datetime): v = v.strftime('%Y-%m-%dT%H:%M:%S')
                     dikt[k] = v
 
         return dikt if len(dikt) > 0 else None
