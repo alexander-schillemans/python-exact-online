@@ -1,0 +1,37 @@
+Metadata-Version: 2.1
+Name: python-exact-online
+Version: 0.1.1
+Summary: Basic wrapper for the Exact Online REST API (v1)
+Home-page: https://github.com/alexanderlhsglobal/python-exact-online
+Author: Alexander Schillemans
+Author-email: alexander.schillemans@lhs.global
+License: GPL-3.0-or-later
+Download-URL: https://github.com/alexanderlhsglobal/python-exact-online/archive/refs/tags/0.1.1.tar.gz
+Keywords: exact,exact online,api
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Programming Language :: Python :: 3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
+# python-exact-online
+Basic wrapper for the Exact Online REST API (v1)
+
+## Limitations
+Only functionalities that I need are worked out. No intention to develop any further.
+
+## Available
+
+| Object        | Actions       |
+| ------------- | ------------- |
+| SalesEntry  | List, Get, Filter, Create, Update, Delete  |
+| SalesEntryLine  | List, Get, Filter, Create, Update, Delete  |
+| Documents/Attachments  | List, Get, Filter, Create, Update, Delete  |
+| Journals  | List, Get, Filter, Create, Update, Delete  |
+| GLAccounts  | List, Get, Filter, Create, Update, Delete  |
+| Accounts  | List, Get, Filter, Create, Update, Delete  |
+| Contacts  | List, Get, Filter, Create, Update, Delete  |
+
