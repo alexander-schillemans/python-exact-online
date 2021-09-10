@@ -127,14 +127,14 @@ exactDocument = api.documents.create(doc, ['/path/to/pdf/file.pdf'])
 
 Basic error handling has been added.
 You can check if an error has occured during a call by checking the hasError attribute on the object.
-If the hasError attribute is been set to True, an Error object will be attached to the error attribute of the same object.
+If the hasError attribute has been set to True, an Error object will be attached to the error attribute of the same object.
 The Error object contains two attributes: code and message. Usually code will be empty. Message is the error message.
 
 ```python
-accounts = api.accounts.get('uid')
+account = api.accounts.get('uid')
 
-if accounts.hasError:
-    print(accounts.error.message)
+if account.hasError:
+    print(account.error.message)
 else:
     print(account.ID)
 ```
@@ -142,4 +142,5 @@ else:
 ## Documentation
 
 Find the official Exact Online documentation here: https://start.exactonline.nl/docs/HlpRestAPIResources.aspx?SourceAction=10
+
 You can find what is expected and required for each call.
