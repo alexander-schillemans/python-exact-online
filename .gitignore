@@ -6,3 +6,4 @@ exactonline/cache/*
 !exactonline/cache/__init__.py
 dist/
 Pipfile.lock
+python_exact_online.egg-info/*
