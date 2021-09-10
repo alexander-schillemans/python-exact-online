@@ -19,7 +19,7 @@ class SalesEntryMethods(APIEndpoint):
 
     def get(self, id, select=[]):
 
-        # Retrieve Sales Entry
+        # 1: retrieve Sales Entry
         url = "{endpoint}?$filter=EntryID eq guid'{id}'".format(endpoint=self.endpoint, id=id)
         if select: url = '{url}&$select={select}'.format(url=url, select=",".join(select))
 
@@ -29,7 +29,7 @@ class SalesEntryMethods(APIEndpoint):
 
         salesEntry = SalesEntry().parse(respJson['d']['results'][0])
 
-        # Retrieve Sales Lines
+        # 2: retrieve Sales Lines
         url = "{endpoint}(guid'{entryId}')/SalesEntryLines".format(endpoint=self.endpoint, entryId=salesEntry.EntryID)
         status, headers, respJson = self.api.get(url)
 
@@ -40,5 +40,12 @@ class SalesEntryMethods(APIEndpoint):
 
         return salesEntry
     
-    def create(self, object):
-        pass
+    def create(self, entry):
+        url = self.endpoint
+        data = entry.getJSON()
+
+        status, headers, respJson = self.api.post(url, data)
+
+        if status not in [200, 201]: return SalesEntry().parseError(respJson)
+
+        return SalesEntry().parse(respJson['d'])

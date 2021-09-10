@@ -6,7 +6,12 @@ import time
 from . import config
 from .cachehandler import CacheHandler
 from .authhandler import AuthHandler
+
 from .endpoints.salesentries import SalesEntryMethods
+from .endpoints.accounts import AccountMethods
+from .endpoints.journals import JournalMethods
+from .endpoints.glaccounts import GLAccountMethods
+from .endpoints.documents import DocumentMethods
 
 class ExactOnlineAPI:
 
@@ -26,6 +31,10 @@ class ExactOnlineAPI:
         self.authHandler = AuthHandler(self, self.clientId, self.clientSecret)
 
         self.salesEntries = SalesEntryMethods(self)
+        self.accounts = AccountMethods(self)
+        self.journals = JournalMethods(self)
+        self.glAccounts = GLAccountMethods(self)
+        self.documents = DocumentMethods(self)
 
     def doRequest(self, method, url, data=None, headers=None, files=None):
 
