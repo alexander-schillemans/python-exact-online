@@ -47,8 +47,12 @@ The above endpoints can be used together with their actions. The way to use them
 The examples below are used with the 'accounts' endpoint. Replace them with their respective endpoints in the table above to call other objects.
 
 ### List
+
 ```python
 accounts = api.accounts.list()
+
+for account in accounts.items():
+    print(account.ID, account.Name)
 ```
 
 ### Get
@@ -68,6 +72,9 @@ Filter on field and value. Returns a list always.
 
 ```python
 accounts = api.accounts.filter('Email', 'test@test.com')
+
+for account in accounts.items():
+    print(account.ID, account.Name)
 ```
 
 This function also supports the optional select parameter.
@@ -121,6 +128,31 @@ doc = Document(
 )
 
 exactDocument = api.documents.create(doc, ['/path/to/pdf/file.pdf'])
+```
+
+## Creating sales entries
+
+When creating sales entries, the corresponding sales lines are expected to be given as well.
+
+```python
+salesEntry = SalesEntry(
+    Customer='uid',
+    Journal='700',
+    YourRef='MyREF',
+)
+
+lines = SalesEntryLineList()
+line1 = SalesEntryLine(AmountFC=100, GLAccount='uid')
+line2 = SalesEntryLine(AmountFC=150, GLAccount='uid')
+
+lines.add(line1)
+lines.add(line2)
+
+salesEntry.SalesEntryLines = lines
+
+exactEntry = api.salesEntries.create(salesEntry)
+
+print(exactEntry.EntryID, exactEntry.InvoiceNumber, exactEntry.AmountDC)
 ```
 
 ## Error handling
