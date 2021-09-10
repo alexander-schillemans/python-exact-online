@@ -12,6 +12,7 @@ from .endpoints.accounts import AccountMethods
 from .endpoints.journals import JournalMethods
 from .endpoints.glaccounts import GLAccountMethods
 from .endpoints.documents import DocumentMethods
+from .endpoints.contacts import ContactMethods
 
 class ExactOnlineAPI:
 
@@ -35,6 +36,7 @@ class ExactOnlineAPI:
         self.journals = JournalMethods(self)
         self.glAccounts = GLAccountMethods(self)
         self.documents = DocumentMethods(self)
+        self.contacts = ContactMethods(self)
 
     def doRequest(self, method, url, data=None, headers=None, files=None):
 

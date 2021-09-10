@@ -60,13 +60,10 @@ class APIEndpoint:
         url = "{endpoint}(guid'{id}')".format(endpoint=self.endpoint, id=id)
         data = object.getJSON()
 
-        print(data)
-
         status, headers, respJson = self.api.put(url, data)
-        print(respJson)
-        if status not in [200, 204]: return self.singleObject().parseError(respJson)
 
-        return self.singleObject().parse(respJson['d'])
+        if status not in [200, 204]: return self.singleObject().parseError(respJson)
+        return True
 
     def delete(self, id):
         url = "{endpoint}(guid'{id}')".format(endpoint=self.endpoint, id=id)

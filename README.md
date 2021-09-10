@@ -8,8 +8,10 @@ Only functionalities that I need are worked out. No intention to develop any fur
 
 | Object        | Actions       |
 | ------------- | ------------- |
-| SalesEntry  | List, Get, Filter, Create  |
-| SalesEntryLine  | List, Get, Filter, Create  |
-| Documents/Attachments  | List, Get, Filter, Create  |
-| Journals  | List, Get, Filter, Create  |
-| GLAccounts  | List, Get, Filter, Create  |
+| SalesEntry  | List, Get, Filter, Create, Update, Delete  |
+| SalesEntryLine  | List, Get, Filter, Create, Update, Delete  |
+| Documents/Attachments  | List, Get, Filter, Create, Update, Delete  |
+| Journals  | List, Get, Filter, Create, Update, Delete  |
+| GLAccounts  | List, Get, Filter, Create, Update, Delete  |
+| Accounts  | List, Get, Filter, Create, Update, Delete  |
+| Contacts  | List, Get, Filter, Create, Update, Delete  |
