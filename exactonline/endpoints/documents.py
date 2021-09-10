@@ -6,7 +6,7 @@ from exactonline.utils import encodeFileToB64, getFileName
 class DocumentMethods(APIEndpoint):
 
     def __init__(self, api):
-        super().__init__(api, 'documents')
+        super().__init__(api, 'documents', Document, DocumentList)
     
     def list(self, select=[]):
         url = "{endpoint}/Documents".format(endpoint=self.endpoint)
