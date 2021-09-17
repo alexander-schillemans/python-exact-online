@@ -50,7 +50,7 @@ When using the script above, any REDIRECT_URI will do. Simply copy and paste the
 
 !! The Redirect URI has to be registered in your Exact App Center.
 
-## Available functionalities
+# Available functionalities
 
 | Object        | Endpoint | Actions       |
 | ------------- | ------------- | ------------- |
