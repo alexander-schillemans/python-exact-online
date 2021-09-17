@@ -13,6 +13,7 @@ from .endpoints.journals import JournalMethods
 from .endpoints.glaccounts import GLAccountMethods
 from .endpoints.documents import DocumentMethods
 from .endpoints.contacts import ContactMethods
+from .endpoints.vatcodes import VATCodeMethods
 
 class ExactOnlineAPI:
 
@@ -37,6 +38,7 @@ class ExactOnlineAPI:
         self.glAccounts = GLAccountMethods(self)
         self.documents = DocumentMethods(self)
         self.contacts = ContactMethods(self)
+        self.vatCodes = VATCodeMethods(self)
 
     def doRequest(self, method, url, data=None, headers=None, files=None):
 
@@ -68,6 +70,8 @@ class ExactOnlineAPI:
         response = self.doRequest(method, url, data, headers, files)
         respContent = json.loads(response.content) if response.content else None
         
+        # print(respContent)
+
         return response.status_code, response.headers, respContent
     
     def checkDivision(self):
