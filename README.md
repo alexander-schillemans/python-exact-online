@@ -30,6 +30,26 @@ Make the connection with your provided CLIENTID and CLIENTSECRET.
 api = ExactOnlineAPI(CLIENTID, CLIENTSECRET)
 ```
 
+Exact Online authentication is build on OAuth2. A basic script to obtain your first tokens can be found below. After you've obtained your tokens, the refresh tokens are automatically used to renew the token if needed. No manual action is required after that.
+
+```python
+from exactonline.api import ExactOnlineAPI
+
+REDIRECT_URI = 'https://any-url-will-do.com/callback/'
+
+api = ExactOnlineAPI(CLIENTID, CLIENTSECRET)
+
+authUrl = api.authHandler.getAuthURL(REDIRECT_URI)
+print(authUrl)
+
+response = input('paste response: ')
+token = api.authHandler.retrieveToken(response, redirectUri=REDIRECT_URI)
+```
+
+When using the script above, any REDIRECT_URI will do. Simply copy and paste the response URI so the handler can obtain the right tokens. 
+
+!! The Redirect URI has to be registered in your Exact App Center.
+
 ## Available functionalities
 
 | Object        | Endpoint | Actions       |
@@ -40,6 +60,7 @@ api = ExactOnlineAPI(CLIENTID, CLIENTSECRET)
 | GLAccounts  | glAccounts | List, Get, Filter, Create, Update, Delete  |
 | Accounts  | accounts | List, Get, Filter, Create, Update, Delete  |
 | Contacts  | contacts | List, Get, Filter, Create, Update, Delete  |
+| VATCodes  | vatCodes | List, Get, Filter, Create, Update, Delete  |
 
 ## Basic setup
 
