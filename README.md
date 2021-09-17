@@ -40,7 +40,7 @@ REDIRECT_URI = 'https://any-url-will-do.com/callback/'
 api = ExactOnlineAPI(CLIENTID, CLIENTSECRET)
 
 authUrl = api.authHandler.getAuthURL(REDIRECT_URI)
-print(authUrl)
+print('visit url: ', authUrl)
 
 response = input('paste response: ')
 token = api.authHandler.retrieveToken(response, redirectUri=REDIRECT_URI)
@@ -174,6 +174,28 @@ salesEntry.SalesEntryLines = lines
 exactEntry = api.salesEntries.create(salesEntry)
 
 print(exactEntry.EntryID, exactEntry.InvoiceNumber, exactEntry.AmountDC)
+```
+
+## Retrieving VATPercentages
+
+VATCodes have VATPercentages linked to them. By default, these percentages are not given when requesting a list of VAT Codes.
+
+```python
+vatCodes = api.vatCodes.list()
+
+for entry in vatCodes.items():
+    for perc in entry.VATPercentages.items():
+        # This will contain an empty VATPercentage object
+        print(vars(perc))
+```
+
+To get the VATPercentages for a VATCode, you need to make a new GET request for that specific VATCode. You can then loop over all the available percentages.
+
+```python
+entry = api.vatCodes.get(UID)
+
+for perc in entry.VATPercentages.items():
+    print(vars(perc))
 ```
 
 ## Error handling
