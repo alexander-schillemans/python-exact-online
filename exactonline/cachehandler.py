@@ -49,5 +49,5 @@ class CacheHandler:
             config.CACHE[key] = value
             return value
 
-        except IOError:
-            raise IOError('couldnt save to cache. do you have the right permissions on the cache folder?')
+        except IOError as e:
+            raise IOError('couldnt save to cache. error raised: {0}'.format(e))
