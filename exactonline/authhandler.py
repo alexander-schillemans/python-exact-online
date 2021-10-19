@@ -86,7 +86,7 @@ class AuthHandler:
         return token
     
     def acquireNewToken(self):
-        print('acquiring new token!!')
+
         tempToken = {
             'access_token' : self.token,
             'refresh_token' : self.refreshToken,

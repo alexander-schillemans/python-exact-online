@@ -36,7 +36,7 @@ class CacheHandler:
             return value
 
         except IOError:
-            return None
+            raise IOError('couldnt read from cache. do you have the right permissions on the cache folder?')
     
     def setCache(self, key, value):
         keyPath = '{cache}/{key}.txt'.format(cache=self.cacheDir, key=key)
@@ -50,4 +50,4 @@ class CacheHandler:
             return value
 
         except IOError:
-            return None
+            raise IOError('couldnt save to cache. do you have the right permissions on the cache folder?')
