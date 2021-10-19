@@ -71,8 +71,7 @@ class DocumentMethods(APIEndpoint):
             data = dAttachment.getJSON()
             url = "{endpoint}/DocumentAttachments".format(endpoint=self.endpoint)
             status, headers, respJson = self.api.post(url, data)
-
-            print(respJson)
+            
             if status in [200, 201]: document.Attachments.add(dAttachment)
         
         return document

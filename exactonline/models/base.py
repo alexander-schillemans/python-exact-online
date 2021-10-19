@@ -77,7 +77,8 @@ class BaseModel:
         from .errors import Error
         
         self.hasError = True
-        self.error = Error(code=json['error']['code'], message=json['error']['message']['value'])
+        if json and 'error' in json:
+            self.error = Error(code=json['error']['code'], message=json['error']['message']['value'])
 
         return self
 
