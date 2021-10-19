@@ -69,8 +69,6 @@ class ExactOnlineAPI:
 
         response = self.doRequest(method, url, data, headers, files)
         respContent = json.loads(response.content) if response.content else None
-        
-        # print(respContent)
 
         return response.status_code, response.headers, respContent
     

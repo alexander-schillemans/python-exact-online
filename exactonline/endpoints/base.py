@@ -19,10 +19,21 @@ class APIEndpoint:
         if select: url = '{url}&$select={select}'.format(url=url, select=",".join(select))
 
         status, headers, respJson = self.api.get(url)
-
         if status != 200: return self.listObject().parseError(respJson)
+        listObj = self.listObject().parse(respJson['d']['results'])
 
-        return self.listObject().parse(respJson['d']['results'])
+        while('__next' in respJson['d']):
+            nextUrl = respJson['d']['__next']
+            nextUrl = nextUrl.replace('https://start.exactonline.be/api/v1/{0}/'.format(self.api.division), '')
+
+            status, headers, respJson = self.api.get(nextUrl)
+            if status != 200: return self.listObject().parseError(respJson)
+            tempListObj = self.listObject().parse(respJson['d']['results'])
+
+            for entryObj in tempListObj.items():
+                listObj.add(entryObj)
+        
+        return listObj
 
     def get(self, id, select=[]):
 
@@ -40,10 +51,21 @@ class APIEndpoint:
         if select: url = '{url}&$select={select}'.format(url=url, select=",".join(select))
 
         status, headers, respJson = self.api.get(url)
-
         if status != 200: return self.listObject().parseError(respJson)
+        listObj = self.listObject().parse(respJson['d']['results'])
 
-        return self.listObject().parse(respJson['d']['results'])
+        while('__next' in respJson['d']):
+            nextUrl = respJson['d']['__next']
+            nextUrl = nextUrl.replace('https://start.exactonline.be/api/v1/{0}/'.format(self.api.division), '')
+
+            status, headers, respJson = self.api.get(nextUrl)
+            if status != 200: return self.listObject().parseError(respJson)
+            tempListObj = self.listObject().parse(respJson['d']['results'])
+
+            for entryObj in tempListObj.items():
+                listObj.add(entryObj)
+        
+        return listObj
 
     def create(self, object):
         url = self.endpoint
