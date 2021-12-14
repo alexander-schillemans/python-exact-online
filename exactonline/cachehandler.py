@@ -1,6 +1,5 @@
 import json
 import os
-import glob
 
 from pathlib import Path
 
@@ -51,3 +50,12 @@ class CacheHandler:
 
         except IOError as e:
             raise IOError('couldnt save to cache. error raised: {0}'.format(e))
+    
+    def deleteCache(self, key):
+        keyPath = '{cache}/{key}.txt'.format(cache=self.cacheDir, key=key)
+        
+        try:
+            if os.path.exists(keyPath):
+                os.remove(keyPath)
+        except IOError as e:
+            raise IOError('couldnt delete cache. error raised: {0}'.format(e)) 

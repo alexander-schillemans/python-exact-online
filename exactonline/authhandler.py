@@ -95,7 +95,14 @@ class AuthHandler:
         }
 
         oauth = OAuth2Session(self.clientId, token=tempToken)
-        self.oauthToken = oauth.refresh_token(self.tokenUrl, client_id=self.clientId, client_secret=self.clientSecret)
+        
+        # Try to get a new token with the cached access & refresh tokens
+        # If refresh token also expired, remove cache so flow can be init again
+        
+        try:
+            self.oauthToken = oauth.refresh_token(self.tokenUrl, client_id=self.clientId, client_secret=self.clientSecret)
+        except:
+            self.cacheHandler.deleteCache(self.clientId)
 
         token = self.tokenSaver(oauth)
 
