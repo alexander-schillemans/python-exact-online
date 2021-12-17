@@ -103,6 +103,7 @@ class AuthHandler:
             self.oauthToken = oauth.refresh_token(self.tokenUrl, client_id=self.clientId, client_secret=self.clientSecret)
         except:
             self.cacheHandler.deleteCache(self.clientId)
+            raise NotFoundError('refresh token is not found. this is likely because the refresh token has expired as well. init the auth flow again.')
 
         token = self.tokenSaver(oauth)
 
