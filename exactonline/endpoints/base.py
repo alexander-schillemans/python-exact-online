@@ -13,11 +13,32 @@ class APIEndpoint:
         self.singleObject = singleObject
         self.listObject = listObject
         self.pkField = pkField
-    
-    def list(self, select=[]):
-        url = self.endpoint
-        if select: url = '{url}&$select={select}'.format(url=url, select=",".join(select))
+        
+    def list(self, select=[], filter=None, filter_operator='and'):
+        url = '{0}'.format(self.endpoint)
+        
+        if filter:
+            if filter_operator not in ['and', 'or']:
+                raise ValueError("'filter_operator' can only be 'and' or 'or'.")
 
+            url = '{url}?$filter='.format(url=url)
+            count = 0
+            for field, value in filter.items():
+                
+                # if not boolean, put single quotes around value
+                if value.lower() not in ['false', 'true']:
+                    value = "'{value}'".format(value=value)
+                
+                if count == 0:
+                    url = "{url}{field} eq {value}".format(url=url, field=field, value=value)
+                else:
+                    url = "{url} {operator} {field} eq {value}".format(url=url, operator=filter_operator, field=field, value=value)
+                    
+                count += 1
+        
+        if select:
+            url = '{url}&$select={select}'.format(url=url, select=",".join(select))
+        
         status, headers, respJson = self.api.get(url)
         if status != 200: return self.listObject().parseError(respJson)
         listObj = self.listObject().parse(respJson['d']['results'])
@@ -95,3 +116,11 @@ class APIEndpoint:
 
         if status not in [200, 204]: return self.singleObject().parseError(respJson)
         return True
+
+class RequiresFiltering:
+    
+   def list(self, select=[], filter=None, filter_operator='and'):
+        if not filter:
+            raise ValueError("Listing requires mandatory filtering. Specify a filter using the filter param. Syntax: { 'filter_field' : 'filter_value' }. ")
+        
+        return super().list(select, filter, filter_operator)
