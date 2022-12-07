@@ -9,7 +9,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
   name = 'python-exact-online',         
   packages=['exactonline', 'exactonline.models', 'exactonline.constants', 'exactonline.cache', 'exactonline.endpoints'],
-  version = '0.4.0',
+  version = '1.0.0',
   license='GPL-3.0-or-later',
   description = 'Basic wrapper for the Exact Online REST API (v1)',
   long_description=long_description,
@@ -17,7 +17,7 @@ setup(
   author = 'Alexander Schillemans',
   author_email = 'alexander.schillemans@lhs.global',
   url = 'https://github.com/alexanderlhsglobal/python-exact-online',
-  download_url = 'https://github.com/alexanderlhsglobal/python-exact-online/archive/refs/tags/0.4.0.tar.gz',
+  download_url = 'https://github.com/alexanderlhsglobal/python-exact-online/archive/refs/tags/1.0.0.tar.gz',
   keywords = ['exact', 'exact online', 'api'],
   install_requires=[
           'requests',
