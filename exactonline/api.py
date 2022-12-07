@@ -49,7 +49,7 @@ class ExactOnlineAPI:
         else: headers = self.headers
 
         reqUrl = '{base}/{division}/{url}'.format(base=self.baseUrl, division=self.division, url=url)
-
+        
         if method == 'GET':
             response = requests.get(reqUrl, params=data, headers=headers)
         elif method == 'POST':

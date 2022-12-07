@@ -70,11 +70,25 @@ The examples below are used with the 'accounts' endpoint. Replace them with thei
 ### List
 
 ```python
+journals = api.journals.list()
+
+for journal in journals.items():
+    print(journal.ID)
+```
+
+Some endpoints require you to use a filter. If you do not filter, it will return an error.
+
+```python
+# raises ValueError
 accounts = api.accounts.list()
 
+# uses mandatory filtering
+accounts = api.accounts.list(filter={ 'Blocked' : 'false' })
+
 for account in accounts.items():
-    print(account.ID, account.Name)
+    print(account.ID)
 ```
+
 
 ### Get
 ```python
