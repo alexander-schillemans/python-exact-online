@@ -7,3 +7,4 @@ exactonline/cache/*
 dist/
 Pipfile.lock
 python_exact_online.egg-info/*
+env

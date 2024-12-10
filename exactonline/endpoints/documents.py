@@ -14,7 +14,7 @@ class DocumentMethods(APIEndpoint):
 
         status, headers, respJson = self.api.get(url)
 
-        if status != 200: return DocumentList().parseError(respJson)
+        if status != 200: return DocumentList().parseError(status, respJson)
 
         return DocumentList().parse(respJson['d']['results'])
     
@@ -24,7 +24,7 @@ class DocumentMethods(APIEndpoint):
 
         status, headers, respJson = self.api.get(url)
 
-        if status != 200: return DocumentTypeList().parseError(respJson)
+        if status != 200: return DocumentTypeList().parseError(status, respJson)
         
         return DocumentTypeList().parse(respJson['d']['results'])
 
@@ -34,7 +34,7 @@ class DocumentMethods(APIEndpoint):
 
         status, headers, respJson = self.api.get(url)
 
-        if status != 200: return DocumentTypeCategoryList().parseError(respJson)
+        if status != 200: return DocumentTypeCategoryList().parseError(status, respJson)
         
         return DocumentTypeCategoryList().parse(respJson['d']['results'])
 
@@ -45,7 +45,7 @@ class DocumentMethods(APIEndpoint):
 
         status, headers, respJson = self.api.get(url)
 
-        if status != 200: return Document().parseError(respJson)
+        if status != 200: return Document().parseError(status, respJson)
 
         return Document().parse(respJson['d']['results'][0])
 
@@ -56,7 +56,7 @@ class DocumentMethods(APIEndpoint):
 
         # 1: create Document
         status, headers, respJson = self.api.post(url, data)
-        if status not in [200, 201]: return Document().parseError(respJson)
+        if status not in [200, 201]: return Document().parseError(status, respJson)
         
         document = Document().parse(respJson['d'])
 

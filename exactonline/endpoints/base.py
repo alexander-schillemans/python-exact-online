@@ -40,7 +40,7 @@ class APIEndpoint:
             url = '{url}&$select={select}'.format(url=url, select=",".join(select))
         
         status, headers, respJson = self.api.get(url)
-        if status != 200: return self.listObject().parseError(respJson)
+        if status != 200: return self.listObject().parseError(status, respJson)
         listObj = self.listObject().parse(respJson['d']['results'])
 
         while('__next' in respJson['d']):
@@ -48,7 +48,7 @@ class APIEndpoint:
             nextUrl = nextUrl.replace('https://start.exactonline.be/api/v1/{0}/'.format(self.api.division), '')
 
             status, headers, respJson = self.api.get(nextUrl)
-            if status != 200: return self.listObject().parseError(respJson)
+            if status != 200: return self.listObject().parseError(status, respJson)
             tempListObj = self.listObject().parse(respJson['d']['results'])
 
             for entryObj in tempListObj.items():
@@ -63,7 +63,7 @@ class APIEndpoint:
 
         status, headers, respJson = self.api.get(url)
 
-        if status != 200: return self.singleObject().parseError(respJson)
+        if status != 200: return self.singleObject().parseError(status, respJson)
 
         return self.singleObject().parse(respJson['d']['results'][0])
     
@@ -72,7 +72,7 @@ class APIEndpoint:
         if select: url = '{url}&$select={select}'.format(url=url, select=",".join(select))
 
         status, headers, respJson = self.api.get(url)
-        if status != 200: return self.listObject().parseError(respJson)
+        if status != 200: return self.listObject().parseError(status, respJson)
         listObj = self.listObject().parse(respJson['d']['results'])
 
         while('__next' in respJson['d']):
@@ -80,7 +80,7 @@ class APIEndpoint:
             nextUrl = nextUrl.replace('https://start.exactonline.be/api/v1/{0}/'.format(self.api.division), '')
 
             status, headers, respJson = self.api.get(nextUrl)
-            if status != 200: return self.listObject().parseError(respJson)
+            if status != 200: return self.listObject().parseError(status, respJson)
             tempListObj = self.listObject().parse(respJson['d']['results'])
 
             for entryObj in tempListObj.items():
@@ -94,7 +94,7 @@ class APIEndpoint:
 
         status, headers, respJson = self.api.post(url, data)
 
-        if status not in [200, 201]: return self.singleObject().parseError(respJson)
+        if status not in [200, 201]: return self.singleObject().parseError(status, respJson)
 
         return self.singleObject().parse(respJson['d'])
     
@@ -105,7 +105,7 @@ class APIEndpoint:
 
         status, headers, respJson = self.api.put(url, data)
 
-        if status not in [200, 204]: return self.singleObject().parseError(respJson)
+        if status not in [200, 204]: return self.singleObject().parseError(status, respJson)
         return True
 
     def delete(self, id):
@@ -114,7 +114,7 @@ class APIEndpoint:
 
         status, headers, respJson = self.api.delete(url, data)
 
-        if status not in [200, 204]: return self.singleObject().parseError(respJson)
+        if status not in [200, 204]: return self.singleObject().parseError(status, respJson)
         return True
 
 class RequiresFiltering:

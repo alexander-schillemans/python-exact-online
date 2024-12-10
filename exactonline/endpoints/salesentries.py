@@ -16,7 +16,7 @@ class SalesEntryMethods(APIEndpoint):
         url = "{endpoint}(guid'{entryId}')/SalesEntryLines".format(endpoint=self.endpoint, entryId=salesEntry.EntryID)
         status, headers, respJson = self.api.get(url)
 
-        if status != 200: return SalesEntryLineList().parseError(respJson)
+        if status != 200: return SalesEntryLineList().parseError(status, respJson)
         salesEntryLines = SalesEntryLineList().parse(respJson['d']['results'])
 
         salesEntry.SalesEntryLines = salesEntryLines

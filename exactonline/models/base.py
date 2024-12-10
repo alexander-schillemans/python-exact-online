@@ -72,13 +72,13 @@ class BaseModel:
 
         return dikt if len(dikt) > 0 else None
     
-    def parseError(self, json):
+    def parseError(self, http_status, json):
 
         from .errors import Error
         
         self.hasError = True
         if json and 'error' in json:
-            self.error = Error(code=json['error']['code'], message=json['error']['message']['value'])
+            self.error = Error(http_status=http_status, code=json['error']['code'], message=json['error']['message']['value'])
 
         return self
 

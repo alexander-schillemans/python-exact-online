@@ -17,7 +17,7 @@ class VATCodeMethods(APIEndpoint):
         url = "{endpoint}(guid'{entryId}')/VATPercentages".format(endpoint=self.endpoint, entryId=vatCode.ID)
         status, headers, respJson = self.api.get(url)
 
-        if status != 200: return VATPercentageList().parseError(respJson)
+        if status != 200: return VATPercentageList().parseError(status, respJson)
         VATPercentages = VATPercentageList().parse(respJson['d']['results'])
 
         vatCode.VATPercentages = VATPercentages
